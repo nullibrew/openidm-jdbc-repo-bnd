@@ -1,0 +1,24 @@
+apply plugin: 'eclipse'
+apply plugin: 'java'
+
+def JDBC_JAR = 'ojdbc6.jar'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+    runtime files('lib/'+JDBC_JAR)
+    compile 'biz.aQute.bnd:bnd:2.4.0'
+}
+
+task showpaths() << {
+    println "jdbc = lib/"+JDBC_JAR
+    println "bnd = ${configurations.compile.asPath}"
+}
+
+task wrap(type: JavaExec) {
+	main = 'aQute.bnd.main.bnd'
+	classpath = configurations.compile
+	args = ['wrap','--properties', 'sqljdbc4.bnd', '--output', 'build/osgi-'+JDBC_JAR, 'lib/'+JDBC_JAR]
+}

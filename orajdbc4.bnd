@@ -1,0 +1,5 @@
+version=4.0
+Export-Package: *;version=${version}
+Bundle-Name: Oracle JDBC Driver 4.0
+Bundle-SymbolicName: Oracle JDBC Driver 4.0
+Bundle-Version: ${version}
